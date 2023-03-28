@@ -7,9 +7,8 @@ Template is on `bitbucket.com` private repository.
 - Reason: Version control and ease of code distribution/updates
 
 Then, clone the repo and install dependencies.
-- `git clone https://<your-username>@bitbucket.org/ngzj/dis-template-distribution.git`
-- `cd dis-template-distribution`
-- `npm install`
+- `git clone https://github.com/saguhildon/Alcon_WebApp.git`
+- `cd Alcon_WebApp`
 - `ng serve` and preview at `localhost:4200`
 
 ## Updating the template
