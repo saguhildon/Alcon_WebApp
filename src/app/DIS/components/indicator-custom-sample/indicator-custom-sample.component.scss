@@ -1,0 +1,40 @@
+@import "variables";
+
+.Indicator {
+  position: relative;
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: $border-100;
+  border-radius: $border-radius;
+  background: $white;
+
+  &__name {
+    margin: 0;
+  }
+
+  &__group {
+    margin: 0 0 0.5rem 0;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    color: $gray-600;
+  }
+
+  &__callout {
+    font-size: $font-size-h1;
+  }
+
+  &__detail {
+    margin: 0;
+    color: $gray-600;
+    font-size: $font-size-sm;
+  }
+
+  &__status {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0.5rem;
+    height: 100%;
+    background: $success;
+  }
+}

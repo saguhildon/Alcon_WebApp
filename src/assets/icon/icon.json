@@ -1,0 +1,12 @@
+{
+    "iconImageFiles": [
+        {
+            "iconName": "warning-machine",
+            "iconPath": "../assets/icon/img/warning_icon.svg"
+        },
+        {
+            "iconName": "default-no-image",
+            "iconPath": "../assets/icon/img/no_image.svg"
+        }
+    ]
+}

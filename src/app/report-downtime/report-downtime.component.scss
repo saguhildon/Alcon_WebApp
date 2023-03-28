@@ -1,0 +1,20 @@
+.form-control.ng-touched.ng-invalid {
+    border:1px solid red;
+   }
+   .form-control.ng-touched.ng-valid {
+    border:1px solid green;
+   }
+label{
+    color: white;
+}
+#table1, #th1 , #td1  {
+    border: 1px solid grey;
+    border-collapse: collapse;
+    padding: 5px;
+  } 
+  #table1 tr:nth-child(odd) {
+    background-color: #f1f1f1;
+  }
+  #table1 tr:nth-child(even) {
+    background-color: #ffffff;
+  }

@@ -1,0 +1,163 @@
+.header-section{
+    height: 80px;
+    line-height: 80px;
+    color: beige;
+    background-color: rgb(46, 43, 43);
+    font-size: 15px;
+    padding-left: 20px;
+}
+
+.card{
+    background-color: white;
+    box-shadow:0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+    color:black;
+    margin: 20px;
+    padding: 10px;
+}
+
+.uploadList{
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.box
+{
+  color: white;
+    height: 100px;
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgb(255 255 255 / 75%);
+}
+
+.boxheat
+{
+  color: white;
+    height: 400px;
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgb(255 255 255 / 75%);
+}
+
+.box1
+{
+  color: white;
+    height: 250px;
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgb(255 255 255 / 75%);
+    width: 35%;
+}
+.box2
+{
+  color: white;
+    height: 250px;
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgb(255 255 255 / 75%);
+    width: 65%;
+}
+
+.accuracy-block {
+  grid-row: 1 / span 3;
+  grid-column: 2 / span 2;
+  box-sizing:border-box;
+  background: #17202A;
+  border-color: #E5E7E9;
+  border-width: 20px;
+  display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: 0px 0px 12px rgba(151, 153, 160, 0.75);
+}
+
+
+.accuracy-results {
+  font-size: 80px;
+  color: #FFFFFF;
+  text-align: center;
+}
+.accuracy-results-title {
+  padding: 40px;
+  font-size: 20px;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.date-title-font {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.date-subtitle-font {
+  font-style: italic;
+  font-size: 15px;
+}
+
+.Label-font {
+  font-size: 20px;
+}
+
+::ng-deep .dashboard-heatmap-result-section-header {
+  font-size: 20px;
+}
+
+::ng-dee .col-lg-5
+{
+  height: 250px;
+}
+
+.AppMain[_ngcontent-vmp-c749] {
+  grid-row: 2/-1;
+  padding: 2.5rem 3rem;
+  overflow-x: auto;
+  background: black;
+}
+
+::ng-deep .k-combobox .k-dropdown-wrap  {
+    background-color: #17202A !important;
+    color:white;
+
+}
+
+::ng-deep .k-combobox .k-select  {
+    background-color: #17202A !important;
+    color:white
+}
+::ng-deep .k-calendar .k-state-selected { background: blue; }
+
+::ng-deep .card {
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.75);
+}
+
+::ng-deep .apexcharts-text tspan {
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.block_table  {
+  color:white;
+  border-collapse: collapse;
+}
+
+.block_th{
+  color:white;
+  font-size: 15px;
+  border: 1px solid #999;
+  padding: 1.2rem;
+  text-align: left;
+}
+
+.block_tr
+{
+  color:white;
+  border: 1px solid white;
+  padding: 15px;
+  border-collapse: collapse;
+  border-spacing: 5px;
+
+}
+
+.block_td{
+  color:white;
+  font-size: 12px;
+  border: 1px solid #999;
+  padding: 1.2rem;
+  text-align: left;
+}

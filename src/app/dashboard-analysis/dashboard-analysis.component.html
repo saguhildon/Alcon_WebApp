@@ -1,0 +1,442 @@
+<div class="container-fluid" style="padding:0px;margin-top:10px;margin-left:-53px;">    
+    <div class="card" style="margin-top:0px;background: #1C2833;">
+      <div class="card-body" >
+        <div class="row">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9" id="wrapper_1"  style="width:60%;">
+                <div #rendererContainer style="border:1px solid white;"></div>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="width:40%;padding:0px;">           
+            <div class= "container2" style="border:1px solid white;height:580px;margin-left:-16px;">
+                <div class="container-fluid" style="padding:0px; ">    
+                    <div class="card" style="margin-top:5px;height:136px;background: #17202A;">
+                      <div class="card-body" style="color: white;font-size:20px">
+                        <div class="row" >      
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p style="padding:5px;">Production Line : </p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <kendo-combobox 
+                                [data]="LT" [(ngModel)]="selectedLT"   style="padding:5px; width:9rem;"
+                                [itemDisabled]="itemDisabled" 
+                                >                                
+                              </kendo-combobox>     
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p style="padding:5px;">Time Step Ahead (hours) :  </p>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <kendo-combobox [data]="TimeStep" 
+                                [(ngModel)]="selectedTimeStep" 
+                                (valueChange)="onChange($event)"
+                                 style="padding:5px;height:50px;width:9rem;"
+                                 [itemDisabled]="itemDisabled"
+                                 >
+                                </kendo-combobox>      
+                            </div>
+                          
+                    
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+            <hr/>
+            
+                 <!-- <div style="background-color: black; opacity: 0.3;color:#fff;">        
+                        <p style="padding:5px;display:inline;">Linear Table : </p>
+                        <kendo-combobox [data]="LT" [value]="'LT01'" style="padding:5px;margin-left:25px;">
+                        </kendo-combobox>                
+                </div>
+                <div style="display: inherit;">        
+                    <p style="padding:5px;display:inline; word-wrap: break-word;width:120px;">Time Step Ahead (hours) : </p>
+                    <kendo-combobox [data]="TimeStep" [value]="'1'" style="padding:5px;height:50px;">
+                    </kendo-combobox>                
+                </div> -->
+                <!-- <div class="spacer" style="padding:5px;">
+                </div> -->
+                <div class="container-fluid" style="padding:0px;">    
+                    <div class="card" style="margin-top:5px;background: #17202A;">
+                      <div class="card-body" style="padding:0px;background: #17202A;">
+                        <div class="row" style="padding:5px;">
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span *ngIf="predictedconditionlabel1 == 'N'">
+                              <p  style="color:white;font-size:17px;">Magazine Station <span style="color:green;"> {{predictedconditionlabel1}}</span></p>
+                            </span>
+                            <span *ngIf="predictedconditionlabel1 == 'F'">
+                              <p  style="color:white;font-size:17px;">Magazine Station <span style="color:red;"> {{predictedconditionlabel1}}</span></p>
+                            </span>
+                             
+                              <div>
+                                <kendo-radialgauge  [transitions]="false" style="display:block;width:125px;height:90px;font-size: 7px;">
+                                  <kendo-radialgauge-scale
+                                        [majorTicks]="{ visible: showTicks, color: ticksColor ,size:'4'}"
+                                        [minorTicks]="{ visible: showTicks, color: ticksColor,size:'2' }"                                        
+                                        >
+                                    <kendo-radialgauge-scale-labels  [color]="labelsColor" [visible]="showLabels"
+                                    
+                                    >
+                                    </kendo-radialgauge-scale-labels>
+                                    <kendo-radialgauge-scale-ranges>
+                                        <kendo-radialgauge-scale-range [from]="0" [to]="50" color="green">
+                                        </kendo-radialgauge-scale-range>
+                                        <kendo-radialgauge-scale-range [from]="50" [to]="75" color="orange">
+                                        </kendo-radialgauge-scale-range>
+                                        <kendo-radialgauge-scale-range [from]="75" [to]="100" color="red">
+                                        </kendo-radialgauge-scale-range>
+                                    </kendo-radialgauge-scale-ranges>
+                                    <kendo-radialgauge-pointers>
+                                      <kendo-radialgauge-pointer
+                                        *ngFor="let pointer of station1"
+                                        [value]="pointer.value"
+                                        [color]="pointer.color"
+                                        [length]="pointer.length"
+                                      >
+                                      </kendo-radialgauge-pointer>
+                                    </kendo-radialgauge-pointers>
+                                  </kendo-radialgauge-scale>
+                                </kendo-radialgauge>
+                              </div>
+                          </div>
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <span *ngIf="predictedconditionlabel2 == 'N'">
+                              <p  style="color:white;font-size:17px;">Filming Station <span style="color:green;"> {{predictedconditionlabel2}}</span></p>
+                            </span>
+                            <span *ngIf="predictedconditionlabel2 == 'F'">
+                              <p  style="color:white;font-size:17px;">Filming Station <span style="color:red;"> {{predictedconditionlabel2}}</span></p>
+                            </span>
+                            <kendo-radialgauge  [transitions]="false" style="display:block;width:125px;height:90px;">
+                              <kendo-radialgauge-scale
+                              [majorTicks]="{ visible: showTicks, color: ticksColor ,size:'4'}"
+                              [minorTicks]="{ visible: showTicks, color: ticksColor,size:'2' }"
+                                    >
+                                <kendo-radialgauge-scale-labels  [color]="labelsColor" [visible]="showLabels" >
+                                </kendo-radialgauge-scale-labels>
+                                <kendo-radialgauge-scale-ranges>
+                                    <kendo-radialgauge-scale-range [from]="0" [to]="50" color="green">
+                                    </kendo-radialgauge-scale-range>
+                                    <kendo-radialgauge-scale-range [from]="50" [to]="75" color="orange">
+                                    </kendo-radialgauge-scale-range>
+                                    <kendo-radialgauge-scale-range [from]="75" [to]="100" color="red">
+                                    </kendo-radialgauge-scale-range>
+                                </kendo-radialgauge-scale-ranges>
+                                <kendo-radialgauge-pointers>
+                                  <kendo-radialgauge-pointer
+                                    *ngFor="let pointer of station2"
+                                    [value]="pointer.value"
+                                    [color]="pointer.color"
+                                    [length]="pointer.length"
+                                  >
+                                  </kendo-radialgauge-pointer>
+                                </kendo-radialgauge-pointers>
+                              </kendo-radialgauge-scale>
+                            </kendo-radialgauge>
+                          </div>
+
+                            <!-- <kendo-grid
+                            [kendoGridBinding]="gridView1"
+                            kendoGridSelectBy="current_time"
+                            [selectedKeys]="mySelection"
+                            [pageSize]="2"
+                            [pageable]="false"
+                            [sortable]="false"
+                            [groupable]="false"
+                            [reorderable]="false"
+                            [resizable]="false"
+                            [height]="150"
+                            [columnMenu]="{ filter: false }">
+                            <kendo-grid-column field="sub_station" title="Sub Station" [width]="70"
+                            [headerStyle]="{ 'background-color': '#17202A',  color: '#fff' }"
+                            >
+                            </kendo-grid-column>
+                            <kendo-grid-column
+                                    field="prediction_confidence"
+                                    title="Confidence Level"
+                                    [width]="100"
+                                    [resizable]="false"
+                                    filter="numeric"
+                                    [headerStyle]="{ 'background-color': '#17202A', color: '#fff' }"
+                            >
+                            <ng-template kendoGridHeaderTemplate let-column>
+                                Confidence Level
+                                <span #anchor (click)="onToggle2()"  >&#10071;</span>
+                                <kendo-popup
+                                [anchor]="anchor"
+                                (anchorViewportLeave)="show = false"
+                                *ngIf="show2" [style]="{'margin':'-150px','white-space':'pre-wrap'}">
+                                <div class="content">
+                                    Confidence level is calculated based on the percentage of correct output of multiple models.
+                                </div>
+                              </kendo-popup>
+                             
+                            </ng-template>
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <span *ngIf="dataItem.predicted_machine_condition =='Normal'">
+                                            <kendo-sparkline type="bar"
+                                            [data]="dataItem.prediction_confidence"
+                                            [tooltip]="{visible: false}"
+                                            [transitions]="true"
+                                            [seriesDefaults]="{color: 'green',labels: {background: 'none',color: 'white', visible: true, format: '{0}%'}}"
+                                          
+                                        >
+                                            <kendo-chart-area opacity="0" [width]="180"></kendo-chart-area>
+                                            <kendo-chart-value-axis>
+                                                <kendo-chart-value-axis-item [min]="0" [max]="130">
+                                                </kendo-chart-value-axis-item>
+                                            </kendo-chart-value-axis>
+                                        </kendo-sparkline>
+                                        </span>
+                                        <span *ngIf="dataItem.predicted_machine_condition =='Fail'">
+                                            <kendo-sparkline type="bar"
+                                            [data]="dataItem.prediction_confidence"
+                                            [tooltip]="{visible: false}"
+                                            [transitions]="true"
+                                            [seriesDefaults]="{color: 'red',labels: {background: 'none', color: 'white',visible: true, format: '{0}%'}}"
+                                          
+                                        >
+                                            <kendo-chart-area opacity="0" [width]="180"></kendo-chart-area>
+                                            <kendo-chart-value-axis>
+                                                <kendo-chart-value-axis-item [min]="0" [max]="130">
+                                                </kendo-chart-value-axis-item>
+                                            </kendo-chart-value-axis>
+                                        </kendo-sparkline>
+                                        </span>
+                                    </ng-template>
+                            </kendo-grid-column>
+                        </kendo-grid> -->
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+            
+                  <div class="spacer" style="padding:5px;">
+                </div>
+                <!-- <div class="container-fluid" style="padding:0px;">    
+                    <div class="card" style="margin-top:0px;">
+                      <div class="card-body" style="color:white;padding:0px;background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);height: 100px;">
+                       <div class="row">
+                            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                                <div class="dashboard-content-results-future-text" style="padding:5px;font-weight:bold;">
+                                    <span>Current Time : </span>
+                                    <div id="clock" style="left:20%">
+                                        <p class="date">{{current_datePipeString}}</p>
+                                        <p class="time">{{current_timePipeString}}</p>              
+                                     </div>  
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                                <div class="dashboard-content-results-future-text" style="padding:5px;font-weight:bold;">
+                                    <span>Prediction Period : </span>
+                                    <div id="clock" style="margin-top:42px;font-size:17px;letter-spacing: 0.01em;">
+                                        <p>{{future_datepipestring1}}</p>
+                                        <p>to</p> 
+                                        <p style="margin-top:-10px;">{{future_datepipestring2}}</p>        
+                                     </div>  
+                                </div>
+                            </div>
+                       </div>
+                        </div>
+                    </div>
+                  </div> -->
+                <div class="container-fluid" style="padding:0px;">    
+                    <div class="card" style="margin-top:0px;background: #000019;border:0px;">
+                      <div class="card-body" style="font-size:20px;color:white;padding:0px;background: radial-gradient(ellipse at center, #0a2e38 0%, #17202A 70%);height: 75px;">
+                        <div class="dashboard-content-results-future-text" style="font-size:20px;padding:5px;font-weight:bold;">
+                            <span>Current Time : </span>
+                            <div id="clock">
+                                <p class="date">{{current_datePipeString}}</p>
+                                <p class="time">{{current_timePipeString}}</p>              
+                             </div>  
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="spacer">
+
+                  </div>
+                  <div class="container-fluid" style="padding:0px;margin-top:10px;">    
+                    <div class="card" style="margin-top:0px;background: #000019;border:0px;">
+                      <div class="card-body" style="font-size:20px;color:white;padding:0px;background: radial-gradient(ellipse at center, #0a2e38 0%, #17202A 70%);height: 115px;">
+                        <div class="dashboard-content-results-future-text" style="font-size:20px;padding:5px;font-weight:bold;">
+                            <span>Prediction Period : </span>
+                            <div id="clock" style="margin-top:42px;font-size:17px;letter-spacing: 0.01em;">
+                                {{future_datepipestring1}}
+                                <p>to</p> 
+                                <p style="margin-top:-10px;">{{future_datepipestring2}}</p>        
+                             </div>  
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div style="color:white;text-align:center;margin-top:15px;">
+                    <p>Prediction Results are updated every 5 mins</p>
+                  </div>
+                <!-- <div class="background_time">
+                    <div class="dashboard-content-results-future-text" style="font-weight:bold;" >
+                         Current Time :   
+                         <div id="clock">
+                            <p class="date">{{current_datePipeString}}</p>
+                            <p class="time">{{current_timePipeString}}</p>              
+                         </div>            
+                    </div>
+                    
+                    <div class="spacer"></div>
+            
+                    <div class="dashboard-content-results-future-text"  style="margin-top:68px;font-weight:bold;">
+                        Prediction Period : 
+                    </div>
+            
+                    <div class="spacer"></div>
+            
+                    <div class="dashboard-content-results-future-text" style="padding:10px;font-weight:bold;" >
+                      {{future_datepipestring1}} to {{future_datepipestring2}}        </div>
+                      
+                   
+                </div> -->
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+  </div>
+
+  <div class='myClass'>
+    <div kendoWindowContainer></div>
+</div>
+
+
+
+<!-- <div kendoDialogContainer></div> -->
+<!-- <div class="container-fluid" style="padding:0px;margin-top:-20px;">    
+    <div class="card" style="margin-top:0px;border:0px;">
+      <div class="card-body" style="color:white;padding:0px;background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 container3" >
+                <kendo-chart style="width: 300px; height: 300px;" [seriesColors]="['#4F81BD', '#C0504D']">
+                    <kendo-chart-area background="rgb(28, 40, 51 ,0.25)" [margin]="30"> </kendo-chart-area>
+                   
+                    <kendo-chart-title text="Breakdown Frequency"
+                    color="white"
+                    ></kendo-chart-title>
+                    <kendo-chart-category-axis>
+                      <kendo-chart-category-axis-item [categories]="['LT01','LT02','LT03','LT04','LT05','LT06','LT07','LT08','LT09','LT10','LT11','LT12','LT13','LT14','LT15','LT16']"
+                      [labels]="{ format: 'd', rotation: 'auto',color: 'white' }"
+                      >
+                      </kendo-chart-category-axis-item>
+                    </kendo-chart-category-axis>
+                    <kendo-chart-value-axis>
+                        <kendo-chart-value-axis-item [labels]="valueAxisLabels">
+                         
+                        </kendo-chart-value-axis-item>
+                      </kendo-chart-value-axis>
+                    <kendo-chart-series>
+                      <kendo-chart-series-item
+                        type="bar"
+                        name="Film Station"
+                        [gap]="2"
+                        [spacing]="0.7"
+                        [data]="[41,27,50,43,53,65,184,177,22,72,63,7,23,45,46,54]"
+                      >
+                     
+                      </kendo-chart-series-item>
+                      <kendo-chart-series-item type="bar"
+                       [data]="[62,15,73,117,76,72,32,38,52,117,62,14,91,66,49,67]"
+                       name= "Magzine Station"
+                       >
+                      </kendo-chart-series-item>
+                      
+                    </kendo-chart-series>
+                    <kendo-chart-legend position="bottom" orientation="horizontal"
+                    [labels]="{color: 'white' }"
+                    >
+                    </kendo-chart-legend>
+                  </kendo-chart>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 container4">
+                <kendo-chart style="width: 300px; height: 300px;" [seriesColors]="['#4F81BD', '#C0504D']">
+                    <kendo-chart-area background="rgb(28, 40, 51 ,0.25)" [margin]="30"> </kendo-chart-area>
+                    <kendo-chart-title text={{charttitle2}}  
+                    color="white" 
+                               
+                    >
+                    </kendo-chart-title>
+                    <kendo-chart-category-axis>
+                      <kendo-chart-category-axis-item
+                        [categories]="['2018','Aug ','Sep ','Oct ','Nov ','Dec ','2019','Feb ','Mar ','Apr ','May ','Jun ','Jul ']"
+                        [title]="{ text: 'Months',color: 'white' }"
+                        [labels]="{ format: 'd', rotation: 'auto',color: 'white' }"
+                      >
+                      </kendo-chart-category-axis-item>
+                    </kendo-chart-category-axis>
+                    <kendo-chart-value-axis>
+                        <kendo-chart-value-axis-item [labels]="valueAxisLabels">
+                         
+                        </kendo-chart-value-axis-item>
+                      </kendo-chart-value-axis>
+                    <kendo-chart-series>
+                      <kendo-chart-series-item
+                        type="line"
+                        name= "Film Station"
+                        [data]="[0,69,11,14.71428571,0,16.5,20,6,14.25,6.4,4,12,13.16666667]"
+                      >
+                     
+                      </kendo-chart-series-item>
+                      <kendo-chart-series-item
+                        type="line"
+                        name= "Magzine Station"
+                        [data]="[25.33333333,16.75,31,50,18.2,10.5,19.5,15,30.875,12.71428571,9.75,21,16.66666667]"
+                      >
+                      </kendo-chart-series-item>
+                      
+                    </kendo-chart-series>
+                    <kendo-chart-legend position="bottom" orientation="horizontal"
+                    [labels]="{color: 'white' }"
+                    >
+                    </kendo-chart-legend>
+                  </kendo-chart>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 container5">
+                <kendo-chart style="width: 300px; height: 300px;" [seriesColors]="['#4F81BD', '#C0504D']">
+                    <kendo-chart-legend  position="top"></kendo-chart-legend>
+                    <kendo-chart-area background="rgb(28, 40, 51 ,0.25)" [margin]="30"> </kendo-chart-area>
+                    <kendo-chart-title text={{charttitle3}}
+                    color="white"
+                    ></kendo-chart-title>
+                    <kendo-chart-category-axis>
+                      <kendo-chart-category-axis-item
+                        [categories]="['2018','Aug ','Sep ','Oct ','Nov ','Dec ','2019','Feb ','Mar ','Apr ','May ','Jun ','Jul ']"
+                        [title]="{ text: 'Months',color: 'white' }"
+                        [labels]="{ format: 'd', rotation: 'auto',color: 'white' }"
+                      >
+                      </kendo-chart-category-axis-item>
+                    </kendo-chart-category-axis>
+                    <kendo-chart-series>
+                      <kendo-chart-series-item
+                        type="line"
+                        name= "Film Station"
+                        [data]="[0,69,11,14.71428571,0,16.5,20,6,14.25,6.4,4,12,13.16666667]"
+                      >
+                      </kendo-chart-series-item>
+                      <kendo-chart-value-axis>
+                        <kendo-chart-value-axis-item [labels]="valueAxisLabels">
+                         
+                        </kendo-chart-value-axis-item>
+                      </kendo-chart-value-axis>
+                      <kendo-chart-series-item
+                        type="line"
+                        name= "Magzine Station"
+                        [data]="[25.33333333,16.75,31,50,18.2,10.5,19.5,15,30.875,12.71428571,9.75,21,16.66666667]"
+                      >
+                      </kendo-chart-series-item>
+                      
+                    </kendo-chart-series>
+                    <kendo-chart-legend position="bottom" orientation="horizontal"
+                   
+                    [labels]="{color: 'white' }"
+                    >
+                    </kendo-chart-legend>
+                  </kendo-chart>
+            
+            </div>
+        </div>
+        </div>
+    </div>
+  </div> -->

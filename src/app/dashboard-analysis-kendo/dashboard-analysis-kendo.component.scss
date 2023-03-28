@@ -1,0 +1,181 @@
+#rendererContainer {
+    width: 80%;
+    height: 500px;
+    background: red;
+    padding: 0%;
+    margin: 0%;
+}
+.AppBar__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000000;
+    // padding: 1rem;
+    text-align: center;
+    margin-top: 505px;
+}
+#cardinline {
+    color: white;
+    height: 750px;
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgba(255, 255, 255 ,0.75);
+}
+
+#inputfields {
+    background: #17202a;
+    box-shadow: 0px 0px 12px rgba(238, 239, 243, 0.75);
+    height: 53px;
+}
+
+hr {
+    margin: 20px 0;
+    border: 1px solid white;
+}
+
+.content {
+    padding: 30px;
+    color: #787878;
+    background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    text-shadow: 0 0 10px rgba(0, 76, 255, 0.75);
+    box-shadow: 0px 0px 12px rgba(0, 76, 255, 0.75);
+    //background-color: aqua;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: block;
+    width: 400px;
+}
+
+#clock {
+    font-family: "Share Tech Mono", monospace;
+    color: #ffffff;
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    // top: 50%;
+    transform: translate(-50%, -50%);
+    color: #daf6ff;
+    text-shadow: 0 0 20px rgba(10, 175, 230, 1), 0 0 20px rgba(10, 175, 230, 0);
+
+    .text {
+        letter-spacing: 0.1em;
+        font-size: 12px;
+        padding: 20px 0 0;
+    }
+}
+.time {
+    letter-spacing: 0.05em;
+    font-size: 15px;
+    // padding: 5px 0;
+    margin-top: -19px;
+}
+.date {
+    letter-spacing: 0.1em;
+    font-size: 15px;
+    margin-top: 49px;
+}
+.dashboard-content-results-future-title {
+    text-align: center;
+    font-size: 1rem;
+    // color: white;
+    padding-top: 60px;
+    font: 400 14px/20px;
+}
+
+.dashboard-content-results-future-text {
+    text-align: center;
+    font-size: 1rem;
+    // color: white;
+    font: 400 14px/20px;
+}
+
+.label {
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: #4f8;
+    font-family: sans-serif;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+//   Kendo CSS
+::ng-deep .k-combobox .k-dropdown-wrap {
+    background-color: #17202a !important;
+    color: white;
+}
+
+::ng-deep .k-combobox .k-select {
+    background-color: #17202a !important;
+    color: white;
+}
+::ng-deep .k-list .k-item,
+.k-list-optionlabel {
+    color: white;
+    background-color: #17202a !important;
+}
+::ng-deep.k-popup {
+    white-space: pre-wrap;
+    background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+    box-shadow: 0px 0px 12px rgba(0, 76, 255, 0.75);
+}
+.k-grid {
+    font-size: 1rem;
+    background: #17202a;
+    color: white;
+    border-color:#fff;
+}
+
+::ng-deep.k-grid tbody tr:hover,
+.k-grid tbody tr.k-state-hover {
+    color: white;
+    background-color: #17202a !important;
+}
+
+::ng-deep.k-grid th.k-state-selected,
+.k-grid td.k-state-selected,
+.k-grid tr.k-state-selected > td {
+    color: white;
+    background-color: #17202a !important;
+}
+
+::ng-deep .k-grid-header .k-grid-filter,
+.k-grid-header .k-header-column-menu {
+    display: none;
+}
+::ng-deep .k-gauge {
+    display: block;
+    color: white;
+}
+
+::ng-deep .k-grid td, .k-grid .k-grid-content, .k-grid .k-grid-header-locked, .k-grid .k-grid-content-locked{
+    border-color: white;
+}
+
+::ng-deep .k-grid tr, .k-grid .k-grid-content, .k-grid .k-grid-header-locked, .k-grid .k-grid-content-locked{
+    border-color: white;
+}
+
+::ng-deep .k-grid .customClass {
+    outline: thick double;
+}
+
+::ng-deep .k-grid .customClass {
+    background-color:lightyellow;
+}
+
+::ng-deep .k-grid .customClass td {
+    border-top-style:double;
+    border-style:double;
+    border-top-width:thick;
+}
+
+::ng-deep .no-scrollbar .k-grid-content
+{
+overflow-y: visible;
+}
+
+::ng-deep .k-grid tbody tr {
+    border-color: white;
+  }
+
+//   ::ng-deep.k-grid tr.even { background-color: #f45c42; }
+//   ::ng-deep  .k-grid tr.odd { background-color: #41f4df; }

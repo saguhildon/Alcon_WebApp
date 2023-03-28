@@ -1,0 +1,189 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+
+    </div>
+
+    <div class="spacer">
+
+    </div>
+    <div class="spacer">
+
+    </div>
+
+
+
+    <div class="row">
+
+
+
+        <div class="col-lg-5 mb-4">
+
+
+            <div class="card mb-4"
+                style="height: 420px;background: #17202A;box-shadow: 0px 0px 12px rgba(238, 239, 243, 0.75);">
+
+                <div class="spacer">
+
+                </div>
+                <div class="spacer">
+
+                </div>
+
+
+                <div style="margin-left: 10px;">
+
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="Label-font" style="color:white;">Production Line :</td>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <kendo-combobox [data]="LT" [(ngModel)]="selectedLT" [itemDisabled]="itemDisabled"
+                                    style="padding:5px; width:15rem;">
+                                </kendo-combobox>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="spacer">
+
+                            </div>
+                        </tr>
+                        <tr>
+
+                            <td class="Label-font" style="color:white;">Station Name:</td>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <kendo-combobox [data]="Station" [(ngModel)]="selectedStation"
+                                    (valueChange)="valueChange($event)" style="padding:5px; width:15rem;">
+                                </kendo-combobox>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="spacer">
+
+                </div>
+                <div class="spacer">
+
+                </div>
+                <div class="spacer">
+
+                </div>
+
+                <div style="margin-left: 10px;">
+                    <div class="date-title-font" style="color:white;"> Please Select a date range : </div>
+                    <div class="date-subtitle-font" style="color:white;"> (for historical data Feb-1-2019 –
+                        March-31-2019) </div>
+
+                    <br />
+                    <div class="spacer">
+
+                    </div>
+
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="Label-font" style="color:white;">Start Date:</td>
+                            <td><kendo-datepicker [format]="format" [(value)]="start_date"
+                                    (valueChange)="onChangeStartDate($event)"
+                                    [disabledDates]="disabledDates"></kendo-datepicker></td>
+
+                        </tr>
+                        <tr class="spacer"></tr>
+
+                        <tr>
+
+                            <td class="Label-font" style="color:white;">End Date:</td>
+                            <td><kendo-datepicker [format]="format" [(value)]="end_date"
+                                    (valueChange)="onChangeEndtDate($event)"
+                                    [disabledDates]="disabledDates2"></kendo-datepicker></td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-7 mb-4" style="height: 420px;background:#1C2833;">
+
+            <!-- Default Card Example -->
+            <div class="card mb-4" style="height: 420px;background: #17202A;">
+                <div class="card-header" style="background: #17202A;color:white;border-color:white;">
+                    Prediction Results
+                </div>
+                <div class="card-body">
+
+                    <div style="color:white;"> Selected Period : {{start_date| date:'mediumDate'}} - {{end_date |
+                        date:'mediumDate'}} </div>
+
+                    <br />
+
+                    <div class="grid-container-header">
+                        <div class="common-block">
+                            <div class="common-results">{{operation_time}} hrs</div>
+                            <div class="common-results-title">Overall Operation Time</div>
+                        </div>
+                        <div class="common-block">
+                            <div class="common-results">{{predicted_correctly}} hrs</div>
+                            <div class="common-results-title">Predicted Correctly time</div>
+                        </div>
+                        <div class="common-block">
+                            <div class="common-results">{{overall_accuracy}}%</div>
+                            <div class="common-results-title">Overall Prediction Accuracy</div>
+                        </div>
+                        <div class="accuracy-block">
+                            <div>
+                                <table class="block_table">
+                                    <tr class="block_tr">
+                                        <th class="block_th">Machine Status</th>
+                                        <th class="block_th">Normal</th>
+                                        <th class="block_th">Fail</th>
+                                    </tr>
+                                    <tr class="block_tr">
+                                        <td class="block_td">Actual Time</td>
+                                        <td class="block_td">{{normal_samples}}</td>
+                                        <td class="block_td">{{fail_samples}}</td>
+                                    </tr>
+                                    <tr class="block_tr">
+                                        <td class="block_td">Predicted Time</td>
+                                        <td class="block_td">{{pdnormal_samples}}</td>
+                                        <td class="block_td">{{pdfail_samples}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <!-- Basic Card Example -->
+    <div class="card mb-4" style="background: #17202A;">
+        <div class="card-header" style="background: #17202A;color:white;border-color:white;">
+            Detailed Prediction Result Comparison
+        </div>
+        <div class="card-body">
+            <div class="dashboard-heatmap-result-section">
+                <div id="chart" style="margin-top:35px; font-size: 20px;">
+                    <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                        [dataLabels]="chartOptions.dataLabels" [title]="chartOptions.title" [xaxis]="chartOptions.xaxis"
+                        [grid]="chartOptions.grid" [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend"
+                        [plotOptions]="chartOptions.plotOptions"></apx-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /.container-fluid -->

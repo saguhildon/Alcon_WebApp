@@ -1,0 +1,36 @@
+<div class="Layout">
+  <div class="AppBar" [ngClass]="{ 'is-login-view': isLoginView() }" style="height:55px;">
+    <div>
+      <h1 class="AppBar__title">{{ appName }}</h1>
+    </div>
+    <div class="AppBar__nav">
+      <!-- Notifications (Remove if not required) -->
+      <app-notifications-menu
+        *ngIf="isLoggedIn()"
+        [notifications]="notifications"
+        [(currentMenu)]="currentFocusedMenu"
+        [onNotificationClick]="onNotificationClick"
+      ></app-notifications-menu>
+      <!-- Profile -->
+      <app-profile-menu [user]="user" [(currentMenu)]="currentFocusedMenu">
+        <!-- Add additional actions below. Route to your pages. -->
+        <kendo-card-actions orientation="horizontal" layout="stretched">
+          <!-- Change user role/password/email etc. -->
+          <button kendoButton look="flat" [routerLink]="'/settings'">
+            User Settings
+          </button>
+        </kendo-card-actions>
+        <kendo-card-actions orientation="horizontal" layout="stretched">
+          <!-- MCT/DIS will handle auth. -->
+          <button kendoButton look="flat" (click)="logout()">
+            Logout
+          </button>
+        </kendo-card-actions>
+      </app-profile-menu>
+    </div>
+  </div>
+  <app-sidebar></app-sidebar>
+  <main class="AppMain" [ngClass]="{ 'is-login-view': isLoginView() }" style="margin-top:-36px;background: #1C2833;">
+    <router-outlet></router-outlet>
+  </main>
+</div>

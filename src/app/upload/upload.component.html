@@ -1,0 +1,100 @@
+<div>
+   <!-- File Upload  -->
+  <div class="row box mt-5">
+    <div class="col-12 col-md-6 mb-3 mt-4">
+      <kendo-label text="Choose the file to predict"></kendo-label>      
+      <input #fileInput name="fileupload" type="file" kendoTextBox (change)="incomingfile($event)"
+        placeholder="Upload file to predict" accept=".xlsx, .csv" style="width:100%" />
+    </div>
+    <div class="col-12 col-md-1 mb-3 mt-5">
+      <button type="button" kendoButton [primary]="true" (click)="Check()">Upload</button>
+    </div>
+    <div class="col-12 col-md-4 mb-3 mt-5">      
+      <button kendoButton icon="download" (click)="downloadSample()">Download Import Format</button>
+    </div>
+
+  </div>
+   <!-- Kendo Grid Table -->
+  <div class="row mt-2 ">
+    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 box1">
+      <p style="padding:5px;">Production Line : {{LT_unique}}</p>
+      <p style="padding:5px;">Station : {{station}}</p>
+      <p style="padding:5px;">Start Date : {{startdate}}</p>
+      <p style="padding:5px;">End Date : {{enddate}} </p>
+      <div style="padding-left: 40%;">
+        <button type="button" kendoButton [primary]="true" [disabled]="btnPredictDisabled"
+          (click)="Predict()">Predict</button>
+      </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 box2">
+
+      <div>
+        <kendo-grid class="grid-results" [kendoGridBinding]="gridData" [pageable]="true" [pageSize]="gridState.take"
+          [skip]="gridState.skip" [reorderable]="true" [navigable]="true" (dataStateChange)="onStateChange($event)">
+          <ng-template kendoGridToolbarTemplate>
+
+            <span>Production Line : </span>
+
+            <kendo-combobox [data]="LT_unique" [(ngModel)]="selectedLT" (valueChange)="valueChange($event)" style="padding:1px; width:12rem;">
+
+            </kendo-combobox>
+
+            <button type="button" style="margin: right;" kendoGridExcelCommand icon="file-excel" [primary]="true">Export
+              to Excel</button>
+
+          </ng-template>
+
+          <kendo-grid-column [width]="100" *ngFor="let column of header" [field]="column" [title]="column"
+            [sticky]="false" editable="true"></kendo-grid-column>
+
+
+          <kendo-grid-excel fileName="prediction.xlsx" [fetchData]="allData"></kendo-grid-excel>
+        </kendo-grid>
+      </div>
+
+    </div>
+
+
+  </div>
+
+ <!-- Prediction Result-->
+  <div class="row boxheat mt-3" style="background: #17202A;" *ngIf="showheatmap">
+    <div class="card-header" style="background: #17202A;color:white;border-color:white;">
+      Detailed Prediction Result Comparison
+    </div>
+    <div style="margin-left: 10px;margin-top:10px;">
+
+
+      <table class="table table-striped">
+        <tr>
+          <td style="color:white;">Start Date:</td>
+          <td>
+            <kendo-datepicker [format]="format" [(value)]="start_date" (valueChange)="onChangeStartDate($event)"
+              [disabledDates]="disabledDates"></kendo-datepicker>
+          </td>
+          <td style="color:white;">End Date:</td>
+          <td>
+            <kendo-datepicker [format]="format" [(value)]="end_date" (valueChange)="onChangeEndtDate($event)"
+              [disabledDates]="disabledDates2"></kendo-datepicker>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+    <div class="card-body">
+      <div class="dashboard-heatmap-result-section">
+        <div id="chart" style="margin-top:10px; font-size: 20px;">
+          <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+            [title]="chartOptions.title" [xaxis]="chartOptions.xaxis" [grid]="chartOptions.grid"
+            [tooltip]="chartOptions.tooltip" [legend]="chartOptions.legend" [plotOptions]="chartOptions.plotOptions">
+          </apx-chart>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
+    <p *ngIf="showuploading" style="font-size: 20px; color: white">Uploading...</p>
+    <p *ngIf="showpredicting" style="font-size: 20px; color: white">Predicting...</p>
+  </ngx-spinner>

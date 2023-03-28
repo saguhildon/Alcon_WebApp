@@ -1,0 +1,186 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
+<div class="spacer">
+
+</div>
+<div class="spacer">
+
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Side Canvas -->
+        <div class="col-lg-8 mb-4">
+            <div class="card  mb-4" id="cardinline">
+                <div style="font-size: 20px; color: white; text-align: center; margin-top: 10px;">Production
+                    Line: LT01</div>
+                <div id="3d_canvas" style="height: 700px;">
+                    <div #rendererContainer></div>
+                    <div kendoWindowContainer></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Side Table -->
+        <div class="col-lg-4 mb-4">
+            <div class="card  mb-4" id="cardinline">
+                <!-- Input Fields -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields">
+                    <table>
+                        <tr>
+                            <th>Production Line : </th>
+                            <td>
+                                <kendo-combobox [data]="LT" [(ngModel)]="selectedLT" style="padding:5px; width:9rem;"
+                                    [itemDisabled]="itemDisabled">
+                                </kendo-combobox>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th>Time Step Ahead (hours) :</th>
+                            <td>
+                                <kendo-combobox [data]="TimeStep" [(ngModel)]="selectedTimeStep"
+                                    (valueChange)="onChange($event)" style="padding:5px;height:50px;width:9rem;"
+                                    [itemDisabled]="itemDisabled">
+                                </kendo-combobox>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <hr />
+
+                <!-- Kendo GRID Table -->
+                <div>
+                    <h3 style="text-decoration: underline;text-align:center;">Confidence Level of Prediction</h3>
+                    <kendo-grid [kendoGridBinding]="gridView1" kendoGridSelectBy="current_time"
+                        [selectedKeys]="mySelection" [pageSize]="2" [pageable]="false" [sortable]="false" scrollable="none"
+                        [groupable]="false" [reorderable]="false" [resizable]="false" [height]="212"
+                        [columnMenu]="{ filter: false }">
+                        <kendo-grid-column field="sub_station" title="Sub Station" [width]="70"
+                            [headerStyle]="{ 'background-color': '#17202A',  color: '#fff' }">
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <span *ngIf="dataItem.predicted_machine_condition =='Normal'">
+                                    <span style="font-size:15px;">{{dataItem.sub_station}} <span
+                                            style="color:green;">N</span></span>
+                                </span>
+                                <span *ngIf="dataItem.predicted_machine_condition =='Fail'">
+                                    <span style="font-size:15px;" #anchor (click)="onTogglereasons()">
+                                        {{dataItem.sub_station}} <span style="color:red;">F</span>
+                                        <kendo-popup [anchor]="anchor" (anchorViewportLeave)="show = false"
+                                            *ngIf="showreasons" [style]="{'margin':'-150px','white-space':'pre-wrap'}">
+                                            <div class="content">
+                                                {{dataItem.reasons}}
+                                            </div>
+                                        </kendo-popup>
+                                    </span>
+                                </span>
+                            </ng-template>
+                        </kendo-grid-column>
+                        <kendo-grid-column field="prediction_confidence" title="Confidence Level" [width]="100"
+                            [resizable]="false" filter="numeric"
+                            [headerStyle]="{ 'background-color': '#17202A', color: '#fff' }">
+                            <ng-template kendoGridHeaderTemplate let-column>
+                                Confidence Level
+                                <span #anchor (click)="onToggleconfidencelevel()">&#10071;</span>
+                                <kendo-popup [anchor]="anchor" (anchorViewportLeave)="show = false"
+                                    *ngIf="showconfidencelevel" [style]="{'margin':'-150px','white-space':'pre-wrap'}">
+                                    <div class="content">
+                                        Confidence level is calculated based on the percentage of correct output of
+                                        multiple models.
+                                    </div>
+                                </kendo-popup>
+
+                            </ng-template>
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <kendo-radialgauge [transitions]="false" style="display:block;width:92px;height:69px;">
+                                    <kendo-radialgauge-scale
+                                        [majorTicks]="{ visible: showTicks, color: ticksColor ,size:'4'}"
+                                        [minorTicks]="{ visible: showTicks, color: ticksColor,size:'2' }">
+                                        <kendo-radialgauge-scale-labels [color]="labelsColor" [visible]="showLabels">
+                                        </kendo-radialgauge-scale-labels>
+                                        <kendo-radialgauge-scale-ranges>
+                                            <kendo-radialgauge-scale-range [from]="0" [to]="50" color="green">
+                                            </kendo-radialgauge-scale-range>
+                                            <kendo-radialgauge-scale-range [from]="50" [to]="75" color="orange">
+                                            </kendo-radialgauge-scale-range>
+                                            <kendo-radialgauge-scale-range [from]="75" [to]="100" color="red">
+                                            </kendo-radialgauge-scale-range>
+                                        </kendo-radialgauge-scale-ranges>
+                                        <kendo-radialgauge-pointers>
+                                            <kendo-radialgauge-pointer
+                                                *ngFor="let pointer of gaugeponterarr(dataItem.sub_station,dataItem.predicted_machine_condition,dataItem.prediction_confidence,dataItem)"
+                                                [value]="pointer.value" [color]="pointer.color"
+                                                [length]="pointer.length">
+                                            </kendo-radialgauge-pointer>
+                                        </kendo-radialgauge-pointers>
+                                    </kendo-radialgauge-scale>
+                                </kendo-radialgauge>
+                                <!-- <span *ngIf="dataItem.predicted_machine_condition =='Normal'">
+                        <kendo-sparkline type="bar"
+                        [data]="dataItem.prediction_confidence"
+                        [tooltip]="{visible: false}"
+                        [transitions]="true"
+                        [seriesDefaults]="{color: 'green',labels: {background: 'none',color: 'white', visible: true, format: '{0}%'}}"
+                      
+                    >
+                        <kendo-chart-area opacity="0" [width]="180"></kendo-chart-area>
+                        <kendo-chart-value-axis>
+                            <kendo-chart-value-axis-item [min]="0" [max]="130">
+                            </kendo-chart-value-axis-item>
+                        </kendo-chart-value-axis>
+                    </kendo-sparkline>
+                    </span>
+                    <span *ngIf="dataItem.predicted_machine_condition =='Fail'">
+                        <kendo-sparkline type="bar"
+                        [data]="dataItem.prediction_confidence"
+                        [tooltip]="{visible: false}"
+                        [transitions]="true"
+                        [seriesDefaults]="{color: 'red',labels: {background: 'none', color: 'white',visible: true, format: '{0}%'}}"
+                      
+                    >
+                        <kendo-chart-area opacity="0" [width]="180"></kendo-chart-area>
+                        <kendo-chart-value-axis>
+                            <kendo-chart-value-axis-item [min]="0" [max]="130">
+                            </kendo-chart-value-axis-item>
+                        </kendo-chart-value-axis>
+                    </kendo-sparkline>
+                    </span> -->
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
+                </div>
+
+                <!-- CurrentTime -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields" style="height:28px;">
+                    <div class="dashboard-content-results-future-text"
+                        style="font-size:14px;padding:5px;font-weight:bold;">
+                        <span>Current Time : </span>
+                        <div id="clock">
+                            <p class="date">{{current_datePipeString}}</p>
+                            <p class="time">{{current_timePipeString}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Predicted Period -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields">
+                    <div class="dashboard-content-results-future-text"
+                        style="font-size:14px;padding:5px;font-weight:bold;">
+                        <span>Prediction Period : </span>
+                        <div id="clock" style="margin-top:57px;font-size:15px;letter-spacing: 0.01em;">
+                            {{future_datepipestring1}}
+                            <p>to</p>
+                            <p style="margin-top:-10px;">{{future_datepipestring2}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="color:white;text-align:center;margin-top:65px;">
+                    <p>Prediction Results are updated every 5 mins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,137 @@
+<div class="dashboard-dialog">
+
+    <div class="dashboard-dialog-header">
+        <div class="grid-container-header">
+            <div class="icon-container">
+                <svg-icon name="warning-machine" [svgStyle]="{'width.px':50,'height.px':75,'fill':'rgb(241, 196, 15)'}"></svg-icon>
+            </div>
+            <div class="dashboard-dialog-title">
+                ANORMALY DETECTED
+            </div>
+            <div class="dashboard-dialog-subtitle">
+                {{substationname}}
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- uncomment this for MCT
+    <div class="dashboard-dialog-content">
+        <div class="grid-container-content">
+            <div class="dashboard-component-icon-abnormal">
+                <div class="dashboard-component-grid-container">
+                    <svg-icon name="default-no-image" [svgStyle]="{'width.px':50,'height.px':50,'fill':'rgb(251, 252, 252)'}"></svg-icon>
+                    <div class="dashboard-component-icon-text">Injection Unit</div>
+                </div>
+            </div>
+            <div class="dashboard-component-icon-abnormal">
+                <div class="dashboard-component-grid-container">
+                    <svg-icon name="default-no-image" [svgStyle]="{'width.px':50,'height.px':50,'fill':'rgb(251, 252, 252)'}"></svg-icon>
+                    <div class="dashboard-component-icon-text">Clamping Unit</div>
+                </div>
+            </div>
+            <div class="dashboard-component-icon-abnormal">
+                <div class="dashboard-component-grid-container">
+                    <svg-icon name="default-no-image" [svgStyle]="{'width.px':50,'height.px':50,'fill':'rgb(251, 252, 252)'}"></svg-icon>
+                    <div class="dashboard-component-icon-text">Hydraulic Unit</div>
+                </div>
+            </div>
+            <div class="dashboard-component-icon-normal">
+                <div class="dashboard-component-grid-container">
+                    <svg-icon name="default-no-image" [svgStyle]="{'width.px':50,'height.px':50,'fill':'rgb(251, 252, 252)'}"></svg-icon>
+                    <div class="dashboard-component-icon-text">Electric Unit</div>
+                </div>
+            </div>
+            <div class="dashboard-component-icon-normal">
+                <div class="dashboard-component-grid-container">
+                    <svg-icon name="default-no-image" [svgStyle]="{'width.px':50,'height.px':50,'fill':'rgb(251, 252, 252)'}"></svg-icon>
+                    <div class="dashboard-component-icon-text">Ejection Unit</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+    -->
+    
+<div class="container-fluid" style="float:left;"> 
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div>Select a start date:</div>
+            <kendo-datepicker [(value)]="start_date"></kendo-datepicker>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div>Select a end date:</div>
+            <kendo-datepicker [(value)]="end_date" (valueChange)="onChange($event)"></kendo-datepicker>
+        </div>
+        
+    </div>
+</div>
+   
+    <br/>
+
+    <div id="chart" style="margin-top:75px;">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [title]="chartOptions.title"
+          [xaxis]="chartOptions.xaxis"
+          [grid]="chartOptions.grid"
+          [tooltip] ="chartOptions.tooltip"
+          [legend] ="chartOptions.legend"
+          [plotOptions]="chartOptions.plotOptions"
+        ></apx-chart>
+      </div>
+
+    <!-- <div class="dashboard-dialog-footer">
+        <div class="grid-container-footer">
+            <button kendoButton icon="folder" [primary]="true">Details</button>
+        </div>
+    </div> -->
+    <div>
+        <table class="table table-striped">
+            <tr>
+                <td>Number of Normal Samples</td>
+                <td>{{normal_samples}}</td>
+            </tr>
+            <tr>
+                <td>Number of Fail Samples</td>
+                <td>{{fail_samples}}</td>
+            </tr>
+            <tr>
+                <td>Number of Samples Predicted Correctly</td>
+                <td>{{predicted_correctly}}</td>
+            </tr>
+        </table>
+
+    </div>
+
+   <div style="border:1px solid black; background-color: aqua;font-size:17px;text-align: center;">
+        <p>Overall Accuracy {{overall_accuracy}}%</p>
+   </div>
+<!-- <div class="container-fluid" style="float:left;">
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+           <h3>No. of Normal</h3>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <p>10</p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3>No. of Fail</h3>
+         </div>
+         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+             <p>3</p>
+         </div>
+         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h3>No. of Predicted</h3>
+         </div>
+         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+             <p>5</p>
+         </div>
+    </div>
+</div> -->
+
+</div>

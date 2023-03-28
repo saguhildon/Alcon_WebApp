@@ -1,0 +1,59 @@
+@import "variables";
+
+$dynamic-content-margin: max(20vw, 20rem);
+
+.Layout {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr;
+}
+
+.AppBar {
+  position: sticky;
+  top: 0;
+  z-index: $z-index-navigation - 1;
+
+  background: $white;
+  border: $border-100;
+  display: flex;
+  padding: 0 2rem;
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 700;
+    color: $gray-900;
+    padding: 1.5rem;
+    margin: 0 3rem 0 1rem;
+  }
+
+  &__nav {
+    flex: 1;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    > * {
+      padding-left: 1rem;
+    }
+  }
+
+  @media screen and (min-width: map-get($grid-breakpoints, "lg")) {
+    &:not(.is-login-view) {
+      margin-left: $dynamic-content-margin;
+    }
+
+    &__title {
+      margin: 0 3rem 0 -1rem;
+    }
+  }
+}
+
+.AppMain {
+  grid-row: 2 / -1;
+  @media screen and (min-width: map-get($grid-breakpoints, "lg")) {
+    &:not(.is-login-view) {
+      margin-left: $dynamic-content-margin;
+    }
+  }
+  padding: 2.5rem 3rem;
+  overflow-x: auto;
+}

@@ -1,0 +1,160 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4"></div>
+<div class="spacer">
+
+</div>
+<div class="spacer">
+
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Left Side Canvas -->
+        <div class="col-lg-8 mb-4">
+            <div class="card  mb-4" id="cardinline">
+                <div style="font-size: 20px; color: white; text-align: center; margin-top: 10px;">Production
+                    Line: {{selectedLT_name}}</div>
+                <div id="3d_canvas" style="height: 700px;">
+                    <div #rendererContainer></div>
+                    <div kendoWindowContainer></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Side Table -->
+        <div class="col-lg-4 mb-4">
+            <div class="card  mb-4" id="cardinline">
+                <!-- Input Fields -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields">
+                    <table>
+                        <tr>
+                            <th style="font-size: 17px;">Production Line : </th>
+                            <td>
+                                <kendo-combobox [data]="LT" [(ngModel)]="selectedLT" textField="productionlinename"
+                                    valueField="id" style="padding:5px; width:9rem;"
+                                    (valueChange)="PPvalueChange($event)">
+                                </kendo-combobox>
+                            </td>
+                        </tr>
+                    </table>
+                    <table>
+                        <tr>
+                            <th style="font-size: 17px;">Time Step Ahead (hours) : 2 hrs</th>
+                            <td>
+
+                                <!-- <kendo-combobox [data]="TimeStep" [(ngModel)]="selectedTimeStep"
+                                    (valueChange)="onChange($event)" style="padding:5px;height:50px;width:9rem;"
+                                    [itemDisabled]="itemDisabled">
+                                </kendo-combobox> -->
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <hr />
+
+                <!-- Kendo GRID Table -->
+                <div>
+                    <kendo-grid [kendoGridBinding]="gridView1" kendoGridSelectBy="current_time"
+                        [selectedKeys]="mySelection" [pageSize]="2" [pageable]="false" [sortable]="false"
+                        scrollable="none" [groupable]="false" [reorderable]="false" [resizable]="false" [height]="180"
+                        [columnMenu]="{ filter: false }">
+                        <kendo-grid-column field="sub_station_name" title="" [width]="80"
+                            [headerStyle]="{ 'font-weight':'bold', 'font-size':'17px', 'background-color': '#17202A',  color: '#fff' }">
+                            <ng-template kendoGridHeaderTemplate let-column>
+                                <span>Sub <br /> Station</span>
+                            </ng-template>
+
+                        </kendo-grid-column>
+                        <kendo-grid-column field="predicted_machine_condition" title="" [width]="80"
+                            [headerStyle]="{ 'font-weight':'bold', 'font-size':'17px','background-color': '#17202A',  color: '#fff' }">
+                            <ng-template kendoGridHeaderTemplate let-column>
+                                <span>Predicted <br /> Condition</span>
+                            </ng-template>
+                            <ng-template kendoGridCellTemplate let-dataItem>
+                                <span *ngIf="dataItem.predicted_machine_condition =='Normal'">
+                                    <span>{{dataItem.predicted_machine_condition}} </span>
+                                </span>
+                                <span *ngIf="dataItem.predicted_machine_condition =='Fail'">
+                                    {{dataItem.predicted_machine_condition}}
+                                    <span #anchor (click)="onTogglereasons()">
+                                        <span>&#10071;</span>
+                                        <kendo-popup [anchor]="anchor" (anchorViewportLeave)="show = false"
+                                            *ngIf="showreasons" [style]="{'margin':'-150px','white-space':'pre-wrap'}">
+                                            <div class="content">
+                                                {{dataItem.reasons}}
+                                            </div>
+                                        </kendo-popup>
+                                    </span>
+                                </span>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </kendo-grid>
+                </div>
+
+                <!-- Gauge Chart -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields" style="height:120px;">
+                    <h3 style="text-decoration: underline;text-align:center;">Confidence Level of Prediction</h3>
+
+                    <div *ngFor="let item1 of gridView1">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <p style="color:white;font-size:17px;text-align: center;">{{item1.sub_station_name}} </p>
+                            <div>
+                                <kendo-radialgauge [transitions]="false"
+                                    style="display:block;width:94px;height:71px;font-size: 7px;">
+                                    <kendo-radialgauge-scale
+                                        [majorTicks]="{ visible: showTicks, color: ticksColor ,size:'4'}"
+                                        [minorTicks]="{ visible: showTicks, color: ticksColor,size:'2' }">
+                                        <kendo-radialgauge-scale-labels [color]="labelsColor" [visible]="showLabels">
+                                        </kendo-radialgauge-scale-labels>
+                                        <kendo-radialgauge-scale-ranges>
+                                            <kendo-radialgauge-scale-range [from]="0" [to]="50" color="red">
+                                            </kendo-radialgauge-scale-range>
+                                            <kendo-radialgauge-scale-range [from]="50" [to]="75" color="orange">
+                                            </kendo-radialgauge-scale-range>
+                                            <kendo-radialgauge-scale-range [from]="75" [to]="100" color="green">
+                                            </kendo-radialgauge-scale-range>
+                                        </kendo-radialgauge-scale-ranges>
+                                        <kendo-radialgauge-pointers>
+                                            <kendo-radialgauge-pointer [value]="item1.prediction_confidence"
+                                                [color]="item1.color" [length]="item1.length">
+                                            </kendo-radialgauge-pointer>
+                                        </kendo-radialgauge-pointers>
+                                    </kendo-radialgauge-scale>
+                                </kendo-radialgauge>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CurrentTime -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields" style="height:28px;">
+                    <div class="dashboard-content-results-future-text"
+                        style="font-size:14px;padding:5px;font-weight:bold;">
+                        <span>Current Time : </span>
+                        <div id="clock">
+                            <p class="date">{{current_datePipeString}}</p>
+                            <p class="time">{{current_timePipeString}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Predicted Period -->
+                <div class="shadow-sm p-3 mb-5 rounded" id="inputfields">
+                    <div class="dashboard-content-results-future-text"
+                        style="font-size:14px;padding:5px;font-weight:bold;">
+                        <span>Prediction Period : </span>
+                        <div id="clock" style="margin-top:57px;font-size:15px;letter-spacing: 0.01em;">
+                            {{future_datepipestring1}}
+                            <p>to</p>
+                            <p style="margin-top:-10px;">{{future_datepipestring2}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="color:white;text-align:center;margin-top:57px;">
+                    <p style="font-size:10px;">Prediction Results are updated every 30 mins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

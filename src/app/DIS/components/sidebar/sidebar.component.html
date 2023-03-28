@@ -1,0 +1,45 @@
+<!-- Sidebar that becomes toggleable on smaller screens -->
+<aside *ngIf="!isLoginView()" class="Sidebar" [@toggleSidebar]="sidebarState">
+  <!-- Hamburger -->
+  <span class="Sidebar__toggle" (click)="toggleSidebar()">
+    <kendo-icon
+      [name]="'hamburger'"
+      *ngIf="sidebarState === 'collapsed'"
+    ></kendo-icon>
+    <kendo-icon
+      [name]="'close'"
+      *ngIf="sidebarState === 'expanded'"
+    ></kendo-icon>
+  </span>
+  <!-- Logo -->
+  <img class="Sidebar__logo" src="assets/img/logo.png" alt="SIMTech Logo" />
+  <!-- Category title and items -->
+  <div class="Sidebar__menu" *ngIf="isLoggedIn()">
+    <!-- FIXME: When menuGroup has no items for current elevation, category should not appear -->
+    <section class="Sidebar__menuCategory" *ngFor="let menuGroup of menuGroups">
+      <h4 class="Sidebar__menuCategoryTitle">{{ menuGroup.group }}</h4>
+      <ul>
+        <li
+          class="Sidebar__menuCategoryItem"
+          (click)="toggleSidebar()"
+          *ngFor="let item of menuGroup.items"
+        >
+          <ng-container *ngIf="isLinkActivated(item.elevation)">
+            <a [routerLink]="item.link" routerLinkActive="active">
+              <kendo-icon [name]="item.icon"></kendo-icon>
+              {{ item.name }}
+            </a>
+          </ng-container>
+        </li>
+      </ul>
+    </section>
+  </div>
+  <div>
+    <div class="footer">
+      <p style="font-size:1.2rem;letter-spacing: 0.05em;">POWERED BY <br/>
+      <span style="font-size:1.65rem;font-weight:bold;letter-spacing: 0.05em;">SIMTECH</span>
+      </p>
+     
+    </div>
+  </div>
+</aside>

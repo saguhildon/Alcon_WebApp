@@ -1,0 +1,100 @@
+<div class="card mb-4" style="background: #17202A;">
+    <div class="card-header" style="background: #17202A;color:white;border-color:white;box-shadow: 0px 0px 12px rgba(238, 239, 243, 0.75);">
+        Report Downtime
+    </div>
+    <div>
+       
+        <div>
+            <div class="row justify-content-sm-center">
+                <div class="col-sm-6 shadow round">
+                    <form [formGroup]="exform" style="padding-top: 3%">
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <td class = "Label-font" style="color:white;">Production Line :</td>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <kendo-combobox formControlName="lt" [data]="LT" [(ngModel)]="selectedLT" [itemDisabled]="itemDisabled"   style="padding:5px; width:15rem;">
+                                        </kendo-combobox>     
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="spacer">
+                    
+                                    </div>
+                                </tr>
+                                <tr >
+                                    
+                                    <td class = "Label-font" style="color:white;">Station Name:</td>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                        <kendo-combobox formControlName="station" [data]="Station" [(ngModel)]="selectedStation" style="padding:5px; width:15rem;">
+                                        </kendo-combobox>     
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td class = "Label-font" style="color:white;">Start Date:</td>
+                                    <td><kendo-datepicker formControlName="start_date" [format]="format" [(value)]="new_start_date" [disabledDates]="disabledDates"></kendo-datepicker></td>
+                                </tr>
+                                <tr>
+                                    <td class = "Label-font" style="color:white; padding-right: 3%;">Start Time:</td>
+                                    <td><kendo-timepicker formControlName="start_time" [(value)]="startTime" ></kendo-timepicker></td>
+                                </tr>
+                                <tr class="spacer"></tr>
+                                <tr>
+                                    <td class = "Label-font" style="color:white; padding-right: 3%;">End Date:</td>
+                                    <td><kendo-datepicker formControlName="end_date" [format]="format" [(value)]="new_end_date" [disabledDates]="disabledDates1"></kendo-datepicker></td>
+                                </tr>
+                                <tr>
+                                    <td class = "Label-font" style="color:white; padding-right: 3%;">End Time:</td>
+                                    <td><kendo-timepicker formControlName="end_time" [(value)]="endTime"></kendo-timepicker></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-form-label">Employee Name:</label>
+                          <input formControlName="name" type="text" class="form-control">
+                          <small *ngIf="name.invalid && name.touched" class="text-danger">Name is Required</small> 
+                        </div>
+                        <div class="form-group">
+                          <label class="col-form-label">Email:</label>
+                          <input formControlName="email" type="text" class="form-control" >
+                          <small *ngIf="email.invalid && email.touched" class="text-danger">Email is Required</small>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-form-label">Phone:</label>
+                          <input formControlName="phone" type="text" class="form-control" >
+                          <small *ngIf="phone.invalid && phone.touched" class="text-danger">Phone no is Required(minimum length 8,numbers are only allowed)</small>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label" style="padding-right:5px;">Category:</label>
+                            <kendo-combobox formControlName="category" [data]="Categories" [(ngModel)]="selectedCategory" style="padding:5px; width:15rem; padding-left:5px">
+                            </kendo-combobox>     
+                        </div>
+                        <div class="form-group">
+                          <label class="col-form-label">Reason For Downtime:</label>
+                          <textarea formControlName="message" class="form-control" ></textarea>
+                          <small *ngIf="message.invalid && message.touched" class="text-danger"> Message is Required(minimum length 10)</small> 
+                        </div>
+                        <button (click)="clicksub()" [disabled]="!exform.valid" type="button" class="btn btn-primary">Report Downtime</button>
+                        <button (click)="submit()" type="button" class="btn btn-primary">TEST</button>
+                      </form>
+                </div>
+                <div style="margin-top: 5px">
+                    <a class="list-menu-item" *ngFor="let list of downtimeList">
+                        <p style="color: white">{{ list.productionLine }}</p>
+                        <p style="color: white">{{ list.stationName }}</p>
+                    </a>
+                </div>  
+            </div>            
+          </div>
+          <table class="table1">
+            <tr class="tr1" *ngFor="let list of downtimeList">
+              <td class="td1">{{ list.productionLine }}</td>
+              <td class="td1">{{ list.stationName }}</td>
+            </tr>
+          </table>
+    </div>
+</div>

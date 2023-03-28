@@ -1,0 +1,110 @@
+<div class="dashboard">
+
+    <div class="dashboard-header">
+    </div>
+
+    <div class="dashboard-content">
+        <div class="dashboard-content-shopfloor">
+            <img class="dashboard-factory-img" src="assets/img/alcon_factory.png"/>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="dashboard-content-filter">
+            <div class="dashboard-content-filter-grid">
+                <div>Select a date:</div>
+                <kendo-datepicker [(value)]="value"></kendo-datepicker>
+
+                <div>Select a station:</div>
+                <kendo-dropdownlist [data]="listItems"> </kendo-dropdownlist>
+            </div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="dashboard-content-results">
+            <div class="dashboard-content-results-history" >
+                <table class="results">
+                    <tr>
+                        <th colspan="13" class="text-center">Historical Record (12 Hours)</th>
+                    </tr>
+                    <tr>
+                      <th>Prediction Period</th>
+                      <th>00:00 - 01:00</th>
+                      <th>01:00 - 02:00</th>
+                      <th>02:00 - 03:00</th>
+                      <th>03:00 - 04:00</th>
+                      <th>04:00 - 05:00</th>
+                      <th>05:00 - 06:00</th>
+                      <th>06:00 - 07:00</th>
+                      <th>07:00 - 08:00</th>
+                      <th>08:00 - 09:00</th>
+                      <th>09:00 - 10:00</th>
+                      <th>10:00 - 11:00</th>
+                      <th>11:00 - 12:00</th>
+                    </tr>
+                    <tr>
+                      <td>Predict Results</td>
+                      <td>Normal</td>
+                      <td>Anormal</td>
+                      <td>Anormal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Anormal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                    </tr>
+                    <tr>
+                      <td>Real Situation</td>
+                      <td>Normal</td>
+                      <td>Anormal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Anormal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                      <td>Normal</td>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-center">Overall accuracy – 90%</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="dashboard-content-results-future">
+                <div class="dashboard-content-results-future-text" >
+                    Current Time
+                </div>
+                <div class="dashboard-content-results-future-text" >
+                    24/5/2021 09:00
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="dashboard-content-results-future-title" >
+                    Future Prediction
+                </div>
+
+                <div class="spacer"></div>
+
+                <div class="dashboard-content-results-future-text" >
+                    24/5/2021 10:00- 11:00
+                </div>
+                <div class="dashboard-content-results-future-text" >
+                    Normal
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-footer">
+    </div>
+
+</div>

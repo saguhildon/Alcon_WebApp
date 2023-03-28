@@ -1,0 +1,26 @@
+.messagebox {
+    box-sizing:border-box;
+    background: #0808c7;
+    border-color: #E5E7E9;
+    border-width: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
+    border: 1px solid rgba(127,255,255,0.25);
+    justify-items: center;
+    align-items: center;
+}
+.messagebox .text {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    right: 0px;
+    font-size: 60px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.75);
+    text-shadow: 0 0 10px rgba(0,255,255,0.95);
+}
+
+.three-div {
+    width: 300px;
+    height: 300px;
+}

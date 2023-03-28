@@ -1,0 +1,139 @@
+<div>
+  <div class="row box mt-5" >
+    <div  class="col-12 col-md-6 mb-3 mt-4">
+      <kendo-label text="Choose the file to predict"></kendo-label>
+      <input
+        #fileInput
+        name="fileupload"
+        type="file"
+        kendoTextBox
+        (change)="incomingfile($event)"
+        placeholder="Upload file to predict"
+        accept=".xlsx, .csv"
+        style="width:100%"/>
+    </div>
+    <div  class="col-12 col-md-1 mb-3 mt-5">
+      <button type="button"
+        kendoButton [primary]="true"
+        [disabled]="btnPredictDisabled"
+        (click)="Predict()"
+      >Predict</button>
+    </div>
+    <div  class="col-12 col-md-1 mb-3 mt-5">
+      <button type="button"
+        kendoButton [primary]="true"
+        [disabled]="btnCompareDisabled"
+        (click)="Compare()"
+      >Compare</button>
+    </div>
+    <div  class="col-12 col-md-4 mb-3 mt-5">
+      <!-- <kendo-label style="color: red;" text="Incorrect excel file Format">
+      </kendo-label> -->
+      <button kendoButton
+        icon="download"
+        (click)="downloadSample()"
+      >Download Import Format</button>
+    </div>
+
+  </div>
+  <div class="row mt-2 ">
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 box1">
+      <p style="padding:5px;">Production Line : LT01 </p>
+      <p style="padding:5px;">Station :  Magazine , Filming</p>
+      <p style="padding:5px;">Start Date : 2019-03-1 </p>
+      <p style="padding:5px;">End Date : 2019-03-7 </p>
+      <div style="padding-left: 40%;">
+        <button type="button"
+        kendoButton [primary]="true"
+        [disabled]=""
+      >Predict</button>
+      </div>
+
+    </div>
+    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 box2">
+      <div class="row col-mt-2">
+        <div class="col-12 col-md-2 col-mt-3">
+          <p >Line : </p>
+        </div>
+        <div class="col-12 col-md-3">
+          <kendo-combobox
+          [data]="LT" style=" width:9rem; height: 2rem;"
+          >
+          </kendo-combobox>
+        </div>
+
+      </div>
+      <div class="accuracy-block">
+        <div>
+            <table class = "block_table" >
+                <tr class = "block_tr" >
+                    <th class = "block_th" >Station</th>
+                    <th class = "block_th" >Prediction Start</th>
+                    <th class = "block_th" >Prediction End</th>
+                    <th class = "block_th" >Prediction Result</th>
+                    <th class = "block_th" >Confidence Level</th>
+                </tr>
+                <tr class = "block_tr">
+                    <td class = "block_td">Magazine</td>
+                    <td class = "block_td">2019-03-1 1:00</td>
+                    <td class = "block_td">2019-03-7 12:00</td>
+                    <td class = "block_td">Normal</td>
+                    <td class = "block_td">0.75</td>
+                  </tr>
+                  <tr class = "block_tr">
+                    <td class = "block_td">Filming</td>
+                    <td class = "block_td">2019-03-1 1:00</td>
+                    <td class = "block_td">2019-03-9 12:00</td>
+                    <td class = "block_td">Normal</td>
+                    <td class = "block_td">0.75</td>
+                  </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+
+
+  </div>
+
+
+  <div class="row boxheat mt-3" style="background: #17202A;">
+    <div class="card-header" style="background: #17202A;color:white;border-color:white;">
+      Detailed Prediction Result Comparison
+    </div>
+    <div class="card-body">
+      <div style="color: white; text-align: center;">Magazine Station</div>
+      <div class="dashboard-heatmap-result-section">
+        <div id="chart" style="margin-top:10px; font-size: 10px;">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [title]="chartOptions.title"
+              [xaxis]="chartOptions.xaxis"
+              [grid]="chartOptions.grid"
+              [tooltip] ="chartOptions.tooltip"
+              [legend] ="chartOptions.legend"
+              [plotOptions]="chartOptions.plotOptions"
+            ></apx-chart>
+        </div>
+      </div>
+      <div style="color: white; text-align: center;">Filming Station</div>
+      <div class="dashboard-heatmap-result-section">
+        <div id="chart" style="margin-top:10px; font-size: 20px;">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [title]="chartOptions.title"
+              [xaxis]="chartOptions.xaxis"
+              [grid]="chartOptions.grid"
+              [tooltip] ="chartOptions.tooltip"
+              [legend] ="chartOptions.legend"
+              [plotOptions]="chartOptions.plotOptions"
+            ></apx-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
